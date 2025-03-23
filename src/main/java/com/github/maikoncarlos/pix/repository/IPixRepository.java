@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.UUID;
 
-public interface PixRepository extends MongoRepository<Pix, UUID> {
+public interface IPixRepository extends MongoRepository<Pix, UUID> {
 }
