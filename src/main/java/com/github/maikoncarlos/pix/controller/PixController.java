@@ -2,22 +2,23 @@ package com.github.maikoncarlos.pix.controller;
 
 import com.github.maikoncarlos.pix.controller.dto.PixCreatResponseDTO;
 import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
+import com.github.maikoncarlos.pix.controller.dto.PixResponseDTO;
+import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.service.PixService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/v1/pix")
 public final class PixController implements IPixController {
 
     private final PixService pixService;
+    private final IPixMapper pixMapper;
 
-    public PixController(PixService pixService) {
+    public PixController(PixService pixService, IPixMapper pixMapper) {
         this.pixService = pixService;
+        this.pixMapper = pixMapper;
     }
 
     @Override
@@ -27,4 +28,14 @@ public final class PixController implements IPixController {
 
         return ResponseEntity.ok (new PixCreatResponseDTO (savePix.getUuid ().toString ()));
     }
+
+    @Override
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PixResponseDTO> findById(@PathVariable String id) {
+        final var response = pixMapper.toResponseDTO (pixService.findById (id));
+
+        return ResponseEntity.ok ().body (response);
+
+    }
+
 }
