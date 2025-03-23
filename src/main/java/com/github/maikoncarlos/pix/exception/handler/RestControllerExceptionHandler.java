@@ -25,7 +25,7 @@ public class RestControllerExceptionHandler {
                 .map (f -> new InvalidParam (f.getField (), f.getDefaultMessage ()))
                 .toList ();
 
-        var pb = ProblemDetail.forStatus (HttpStatus.BAD_REQUEST);
+        var pb = ProblemDetail.forStatus (HttpStatus.UNPROCESSABLE_ENTITY);
 
         pb.setTitle (TITLE);
         pb.setProperty ("invalid-params", fieldErrors);
