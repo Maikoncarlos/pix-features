@@ -3,6 +3,7 @@ package com.github.maikoncarlos.pix.controller;
 import com.github.maikoncarlos.pix.controller.dto.PixCreatResponseDTO;
 import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
 import com.github.maikoncarlos.pix.service.PixService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +22,7 @@ public final class PixController implements IPixController {
 
     @Override
     @PostMapping
-    public ResponseEntity<PixCreatResponseDTO> created(@RequestBody PixRequestDTO requestDTO) {
+    public ResponseEntity<PixCreatResponseDTO> created(@RequestBody @Valid PixRequestDTO requestDTO) {
         final var savePix = pixService.save (requestDTO);
 
         return ResponseEntity.ok (new PixCreatResponseDTO (savePix.getUuid ().toString ()));
