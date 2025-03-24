@@ -7,6 +7,7 @@ import com.github.maikoncarlos.pix.exception.PixByIdNotFoundException;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.repository.IPixRepository;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,15 +15,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PixService {
 
     private final IPixRepository pixRepository;
     private final IPixMapper pixMapper;
-
-    public PixService(IPixRepository pixRepository, IPixMapper pixMapper) {
-        this.pixRepository = pixRepository;
-        this.pixMapper = pixMapper;
-    }
 
     @Transactional
     public Pix save(final PixRequestDTO pixRequestDTO) {

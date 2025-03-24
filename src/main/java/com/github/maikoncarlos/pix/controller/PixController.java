@@ -7,6 +7,7 @@ import com.github.maikoncarlos.pix.controller.dto.PixUpdateRequestDTO;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.service.PixService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,15 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/v1/pix")
+@RequiredArgsConstructor
 public final class PixController implements IPixController {
 
     private final PixService pixService;
     private final IPixMapper pixMapper;
-
-    public PixController(PixService pixService, IPixMapper pixMapper) {
-        this.pixService = pixService;
-        this.pixMapper = pixMapper;
-    }
 
     @Override
     @PostMapping
@@ -56,6 +53,4 @@ public final class PixController implements IPixController {
 
         return ResponseEntity.ok ().body (response);
     }
-
-
 }
