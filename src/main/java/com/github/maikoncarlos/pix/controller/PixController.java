@@ -3,6 +3,7 @@ package com.github.maikoncarlos.pix.controller;
 import com.github.maikoncarlos.pix.controller.dto.PixCreatResponseDTO;
 import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
 import com.github.maikoncarlos.pix.controller.dto.PixResponseDTO;
+import com.github.maikoncarlos.pix.controller.dto.PixUpdateRequestDTO;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.service.PixService;
 import jakarta.validation.Valid;
@@ -46,6 +47,14 @@ public final class PixController implements IPixController {
         final var listResponse = pixMapper.toListResponse (pixService.findListByAgencyAndAccount (agency, account));
 
         return ResponseEntity.ok ().body (listResponse);
+    }
+
+    @Override
+    @PutMapping
+    public ResponseEntity<PixResponseDTO> update(@RequestBody @Valid PixUpdateRequestDTO requestDTO) {
+        final var response = pixMapper.toResponseDTO (pixService.updatePix (requestDTO));
+
+        return ResponseEntity.ok ().body (response);
     }
 
 

@@ -1,6 +1,7 @@
 package com.github.maikoncarlos.pix.service;
 
 import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
+import com.github.maikoncarlos.pix.controller.dto.PixUpdateRequestDTO;
 import com.github.maikoncarlos.pix.exception.PixByAgencyAndAccountNotFoundException;
 import com.github.maikoncarlos.pix.exception.PixByIdNotFoundException;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
@@ -40,5 +41,18 @@ public class PixService {
             throw new PixByAgencyAndAccountNotFoundException (agency, account);
 
         return responseFindAgencyAndAccount;
+    }
+
+    @Transactional
+    public Pix updatePix(final PixUpdateRequestDTO pixUpdateRequestDTO){
+        var responseFindById = findById (pixUpdateRequestDTO.id ());
+
+        responseFindById.setAccountType (pixUpdateRequestDTO.accountType ());
+        responseFindById.setAgencyNumber (pixUpdateRequestDTO.agencyNumber ());
+        responseFindById.setAccountNumber (pixUpdateRequestDTO.accountNumber ());
+        responseFindById.setClientName (pixUpdateRequestDTO.clientName ());
+        responseFindById.setClientLastName (pixUpdateRequestDTO.clientLastName ());
+
+        return pixRepository.save (responseFindById);
     }
 }
