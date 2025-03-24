@@ -1,12 +1,14 @@
 package com.github.maikoncarlos.pix.service;
 
 import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
-import com.github.maikoncarlos.pix.exception.PixNotFoundException;
+import com.github.maikoncarlos.pix.exception.PixByAgencyAndAccountNotFoundException;
+import com.github.maikoncarlos.pix.exception.PixByIdNotFoundException;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.repository.IPixRepository;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -24,8 +26,17 @@ public class PixService {
         return pixRepository.save (pixMapper.requestToEntity (pixRequestDTO));
     }
 
-    public Pix findById(String id) {
+    public Pix findById(final String id) {
         return pixRepository.findByUuidAndActive (UUID.fromString (id), true).
-                orElseThrow (() -> new PixNotFoundException (id));
+                orElseThrow (() -> new PixByIdNotFoundException (id));
+    }
+
+    public List<Pix> findListByAgencyAndAccount(final int agency, final int account) {
+        final var responseFindAgencyAndAccount = pixRepository.findByAgencyNumberAndAccountNumberAndActive (agency, account, true);
+
+        if (responseFindAgencyAndAccount.isEmpty ())
+            throw new PixByAgencyAndAccountNotFoundException (agency, account);
+
+        return responseFindAgencyAndAccount;
     }
 }

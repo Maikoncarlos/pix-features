@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/v1/pix")
 public final class PixController implements IPixController {
@@ -37,5 +39,14 @@ public final class PixController implements IPixController {
         return ResponseEntity.ok ().body (response);
 
     }
+
+    @Override
+    @GetMapping(value = "/{agency}/{account}")
+    public ResponseEntity<List<PixResponseDTO>> findListByAgencyAndAccount(@PathVariable int agency, @PathVariable int account) {
+        final var listResponse = pixMapper.toListResponse (pixService.findListByAgencyAndAccount (agency, account));
+
+        return ResponseEntity.ok ().body (listResponse);
+    }
+
 
 }

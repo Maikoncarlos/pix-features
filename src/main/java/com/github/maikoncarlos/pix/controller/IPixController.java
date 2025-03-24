@@ -5,9 +5,12 @@ import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
 import com.github.maikoncarlos.pix.controller.dto.PixResponseDTO;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public sealed interface IPixController permits PixController{
 
     ResponseEntity<PixCreatResponseDTO> created(PixRequestDTO requestDTO);
 
     ResponseEntity<PixResponseDTO> findById(String id);
+    ResponseEntity<List<PixResponseDTO>> findListByAgencyAndAccount(int agency, int account);
 }

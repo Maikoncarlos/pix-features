@@ -5,9 +5,13 @@ import com.github.maikoncarlos.pix.controller.dto.PixResponseDTO;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface IPixMapper {
     Pix requestToEntity(PixRequestDTO request);
 
     PixResponseDTO toResponseDTO(Pix request);
+
+    List<PixResponseDTO> toListResponse(List<Pix> listByAgencyAndAccount);
 }
