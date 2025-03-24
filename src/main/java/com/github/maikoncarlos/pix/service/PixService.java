@@ -7,6 +7,7 @@ import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.repository.IPixRepository;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class PixService {
         this.pixMapper = pixMapper;
     }
 
+    @Transactional
     public Pix save(final PixRequestDTO pixRequestDTO) {
         return pixRepository.save (pixMapper.requestToEntity (pixRequestDTO));
     }
