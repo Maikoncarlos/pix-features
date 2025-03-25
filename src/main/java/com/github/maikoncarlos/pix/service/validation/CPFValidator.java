@@ -2,7 +2,7 @@ package com.github.maikoncarlos.pix.service.validation;
 
 public class CPFValidator {
 
-    public boolean isCPFValido(String cpf) {
+    public static boolean isValid(String cpf) {
 
         if (cpf.length () != 11) {
             return false;

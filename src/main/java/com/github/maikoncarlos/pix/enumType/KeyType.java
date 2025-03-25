@@ -1,7 +1,7 @@
 package com.github.maikoncarlos.pix.enumType;
 
 import com.github.maikoncarlos.pix.exception.PixInvalidKeyValueException;
-import com.github.maikoncarlos.pix.service.validation.CPFValidator;
+import com.github.maikoncarlos.pix.service.validation.*;
 
 import java.util.Arrays;
 
@@ -9,30 +9,35 @@ public enum KeyType {
     ALEATORIO ("aleatorio") {
         @Override
         public void validated(String value) {
+            if (!AleatorioValidator.isValid (value))
+                throw new PixInvalidKeyValueException ("Key random invalid");
         }
     }, CELULAR ("celular") {
         @Override
         public void validated(String value) {
+            if (!CelularValidator.isValid (value))
+                throw new PixInvalidKeyValueException ("Celular invalid");
 
         }
     }, CNPJ ("cnpj") {
         @Override
         public void validated(String value) {
+            if (!CNPJValidator.isValid (value))
+                throw new PixInvalidKeyValueException ("CNPJ invalid");
 
         }
     }, CPF ("cpf") {
         @Override
         public void validated(String value) {
-            final var cpfValidator = new CPFValidator ();
-
-            if (!cpfValidator.isCPFValido (value))
+            if (!CPFValidator.isValid (value))
                 throw new PixInvalidKeyValueException ("CPF invalid");
 
         }
     }, EMAIL ("email") {
         @Override
         public void validated(String value) {
-
+            if (!EmailValidator.isValid (value))
+                throw new PixInvalidKeyValueException ("Email invalid");
         }
     };
 
