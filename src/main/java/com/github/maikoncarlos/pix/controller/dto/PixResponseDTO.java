@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-public record PixResponseDTO(UUID uuid,
+public record PixResponseDTO(UUID id,
                              String keyType,
                              String keyValue,
                              String accountType,

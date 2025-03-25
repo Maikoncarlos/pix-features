@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface IPixRepository extends MongoRepository<Pix, UUID> {
 
-    Optional<Pix> findByUuidAndActive(UUID uuid, boolean active);
+    Optional<Pix> findByIdAndActive(UUID id, boolean active);
     List<Pix> findByAgencyNumberAndAccountNumberAndActive(int agencyNumber, int accountNumber, boolean active);
 
 }

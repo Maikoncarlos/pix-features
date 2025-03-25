@@ -15,7 +15,7 @@ import java.util.UUID;
 @Data
 public class Pix {
     @Id
-    private UUID uuid = UUID.randomUUID ();
+    private UUID id = UUID.randomUUID ();
     private String keyType;
     private String keyValue;
     private String accountType;

@@ -27,7 +27,7 @@ public class PixService {
     }
 
     public Pix findById(final String id) {
-        return pixRepository.findByUuidAndActive (UUID.fromString (id), true).
+        return pixRepository.findByIdAndActive (UUID.fromString (id), true).
                 orElseThrow (() -> new PixByIdNotFoundException (id));
     }
 

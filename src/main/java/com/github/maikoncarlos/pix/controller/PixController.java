@@ -26,7 +26,7 @@ public final class PixController implements IPixController {
     public ResponseEntity<PixCreatResponseDTO> created(@RequestBody @Valid PixRequestDTO requestDTO) {
         final var savePix = pixService.save (requestDTO);
 
-        return ResponseEntity.ok (new PixCreatResponseDTO (savePix.getUuid ().toString ()));
+        return ResponseEntity.ok (new PixCreatResponseDTO (savePix.getId ().toString ()));
     }
 
     @Override
