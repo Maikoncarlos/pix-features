@@ -4,6 +4,7 @@ import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
 import com.github.maikoncarlos.pix.controller.dto.PixUpdateRequestDTO;
 import com.github.maikoncarlos.pix.exception.PixByAgencyAndAccountNotFoundException;
 import com.github.maikoncarlos.pix.exception.PixByIdNotFoundException;
+import com.github.maikoncarlos.pix.exception.PixExistsByIdException;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.repository.IPixRepository;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,5 +53,17 @@ public class PixService {
         responseFindById.setClientLastName (pixUpdateRequestDTO.clientLastName ());
 
         return pixRepository.save (responseFindById);
+    }
+
+    @Transactional
+    public Pix disableById(String id) {
+        if(pixRepository.existsByIdAndActive (UUID.fromString (id), false ))
+            throw new PixExistsByIdException (id);
+
+        Pix pix = findById (id);
+        pix.setActive (false);
+        pix.setDateOfInactivation (LocalDateTime.now ());
+
+        return pixRepository.save(pix);
     }
 }

@@ -53,4 +53,11 @@ public final class PixController implements IPixController {
 
         return ResponseEntity.ok ().body (response);
     }
+
+    @Override
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<PixResponseDTO> disableById(@PathVariable String id) {
+        final var response = pixMapper.toResponseDTO (pixService.disableById (id));
+        return ResponseEntity.ok ().body (response);
+    }
 }
