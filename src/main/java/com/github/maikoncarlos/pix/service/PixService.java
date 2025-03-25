@@ -2,12 +2,14 @@ package com.github.maikoncarlos.pix.service;
 
 import com.github.maikoncarlos.pix.controller.dto.PixRequestDTO;
 import com.github.maikoncarlos.pix.controller.dto.PixUpdateRequestDTO;
+import com.github.maikoncarlos.pix.enumType.KeyType;
 import com.github.maikoncarlos.pix.exception.PixByAgencyAndAccountNotFoundException;
 import com.github.maikoncarlos.pix.exception.PixByIdNotFoundException;
 import com.github.maikoncarlos.pix.exception.PixExistsByIdException;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.repository.IPixRepository;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
+import com.github.maikoncarlos.pix.service.validation.ValidKeyValueStrategy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,9 @@ public class PixService {
 
     @Transactional
     public Pix save(final PixRequestDTO pixRequestDTO) {
+        final var validKeyValueStrategy = new ValidKeyValueStrategy (KeyType.getKeyType (pixRequestDTO.keyType ()));
+        validKeyValueStrategy.execute (pixRequestDTO.keyValue ());
+
         return pixRepository.save (pixMapper.requestToEntity (pixRequestDTO));
     }
 
@@ -43,7 +48,7 @@ public class PixService {
     }
 
     @Transactional
-    public Pix updatePix(final PixUpdateRequestDTO pixUpdateRequestDTO){
+    public Pix updatePix(final PixUpdateRequestDTO pixUpdateRequestDTO) {
         var responseFindById = findById (pixUpdateRequestDTO.id ());
 
         responseFindById.setAccountType (pixUpdateRequestDTO.accountType ());
@@ -57,13 +62,13 @@ public class PixService {
 
     @Transactional
     public Pix disableById(String id) {
-        if(pixRepository.existsByIdAndActive (UUID.fromString (id), false ))
+        if (pixRepository.existsByIdAndActive (UUID.fromString (id), false))
             throw new PixExistsByIdException (id);
 
         Pix pix = findById (id);
         pix.setActive (false);
         pix.setDateOfInactivation (LocalDateTime.now ());
 
-        return pixRepository.save(pix);
+        return pixRepository.save (pix);
     }
 }
