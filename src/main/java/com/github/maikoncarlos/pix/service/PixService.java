@@ -6,6 +6,7 @@ import com.github.maikoncarlos.pix.enumType.KeyType;
 import com.github.maikoncarlos.pix.exception.PixByAgencyAndAccountNotFoundException;
 import com.github.maikoncarlos.pix.exception.PixByIdNotFoundException;
 import com.github.maikoncarlos.pix.exception.PixExistsByIdException;
+import com.github.maikoncarlos.pix.exception.PixKeyValueAlreadyRegisteredException;
 import com.github.maikoncarlos.pix.mapper.IPixMapper;
 import com.github.maikoncarlos.pix.repository.IPixRepository;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
@@ -26,9 +27,12 @@ public class PixService {
     private final IPixMapper pixMapper;
 
     @Transactional
-    public Pix save(final PixRequestDTO pixRequestDTO) {
+    public Pix save(final PixRequestDTO pixRequestDTO) throws PixKeyValueAlreadyRegisteredException {
         final var validKeyValueStrategy = new ValidKeyValueStrategy (KeyType.getKeyType (pixRequestDTO.keyType ()));
         validKeyValueStrategy.execute (pixRequestDTO.keyValue ());
+
+        if(keyValueAlreadyRegistered (pixRequestDTO.keyValue ()))
+            throw new PixKeyValueAlreadyRegisteredException (pixRequestDTO.keyValue ());
 
         return pixRepository.save (pixMapper.requestToEntity (pixRequestDTO));
     }
@@ -62,7 +66,7 @@ public class PixService {
 
     @Transactional
     public Pix disableById(String id) {
-        if (pixRepository.existsByIdAndActive (UUID.fromString (id), false))
+        if (pixAlreadyDisable (id))
             throw new PixExistsByIdException (id);
 
         Pix pix = findById (id);
@@ -70,5 +74,13 @@ public class PixService {
         pix.setDateOfInactivation (LocalDateTime.now ());
 
         return pixRepository.save (pix);
+    }
+
+    private boolean pixAlreadyDisable(String id) {
+        return pixRepository.existsByIdAndActive (UUID.fromString (id), false);
+    }
+
+    private boolean keyValueAlreadyRegistered(final String keyValue) {
+        return pixRepository.existsByKeyValue(keyValue);
     }
 }
