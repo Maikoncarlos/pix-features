@@ -60,4 +60,12 @@ public final class PixController implements IPixController {
         final var response = pixMapper.toResponseDTO (pixService.disableById (id));
         return ResponseEntity.ok ().body (response);
     }
+
+    @Override
+    @GetMapping
+    public ResponseEntity<List<PixResponseDTO>> findByKeyTypeAndOrClientName(@RequestParam String keyType,
+                                                                              @RequestParam(required = false) String clientName) {
+        return ResponseEntity.ok ().body (pixMapper.toListResponse (
+                pixService.findByKeyTypeAndOrClientName (keyType, clientName)));
+    }
 }

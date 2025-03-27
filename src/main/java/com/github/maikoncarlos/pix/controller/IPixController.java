@@ -15,4 +15,5 @@ public sealed interface IPixController permits PixController{
     ResponseEntity<List<PixResponseDTO>> findListByAgencyAndAccount(int agency, int account);
     ResponseEntity<PixResponseDTO> update(PixUpdateRequestDTO requestDTO);
     ResponseEntity<PixResponseDTO> disableById(String id);
+    ResponseEntity<List<PixResponseDTO>> findByKeyTypeAndOrClientName(String keyType, String clientName);
 }

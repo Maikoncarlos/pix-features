@@ -5,6 +5,8 @@ import com.github.maikoncarlos.pix.service.validation.*;
 
 import java.util.Arrays;
 
+import static java.lang.String.format;
+
 public enum KeyType {
     ALEATORIO ("aleatorio") {
         @Override
@@ -57,7 +59,8 @@ public enum KeyType {
     }
 
     public static KeyType getKeyType(final String value) {
-        return Arrays.stream (KeyType.values ()).filter (k -> k.value.equals (value)).findFirst ().get ();
+        return Arrays.stream (KeyType.values ()).filter (k -> k.value.equals (value)).findFirst ()
+                .orElseThrow (() -> new IllegalArgumentException (format("valor do params keyType = %s é inválido!", value)));
     }
 
     public abstract void validated(String value);

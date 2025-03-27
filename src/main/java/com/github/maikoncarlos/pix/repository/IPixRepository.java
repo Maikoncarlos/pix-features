@@ -15,5 +15,9 @@ public interface IPixRepository extends MongoRepository<Pix, UUID> {
 
     boolean existsByIdAndActive(UUID id, boolean active);
 
-    boolean existsByKeyValue(String s);
+    boolean existsByKeyValue(String keyValue);
+
+    List<Pix> findByKeyType(String keyType);
+
+    List<Pix> findByKeyTypeAndClientName(String keyType, String clientName);
 }
