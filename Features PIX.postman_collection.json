@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "68980090-69c7-4193-b185-20aa0219aac3",
+		"name": "Features PIX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25859921"
+	},
+	"item": [
+		{
+			"name": "Buscar Chave Pix por Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{8080}}/v1/pix/a4860ab8-2735-4327-8a79-68e27b9a9f1f"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Chave Pix por tipo de chave e ou nome do cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{8080}}/v1/pix?keyType=CPF&clientName=Maikon",
+					"host": [
+						"{{8080}}"
+					],
+					"path": [
+						"v1",
+						"pix"
+					],
+					"query": [
+						{
+							"key": "keyType",
+							"value": "CPF"
+						},
+						{
+							"key": "clientName",
+							"value": "Maikon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inativar Chave Pix por Id",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": "{{8080}}/v1/pix/a4860ab8-2735-4327-8a79-68e27b9a9f1f"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Chave Pix por Agencia e Conta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{8080}}/v1/pix/2635/256621"
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Todas Chaves Pix",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{8080}}/v1/pix"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar chave PIX",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"keyType\": \"celular\",\n  \"keyValue\": \"36658393869444\",\n  \"accountType\": \"corrente\",\n  \"agencyNumber\":2635,\n  \"accountNumber\":256621,\n  \"clientName\": \"Jose\",\n  \"clientLastName\": \"Carlos\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{8080}}/v1/pix"
+			},
+			"response": []
+		},
+		{
+			"name": "Criar chave PIX Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"7781e10b-3627-445d-b454-5af7c749fa09\",\n  \"accountType\": \"corrente\",\n  \"agencyNumber\":2635,\n  \"accountNumber\":256621,\n  \"clientName\": \"Joseeee\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{8080}}/v1/pix"
+			},
+			"response": []
+		}
+	]
+}
