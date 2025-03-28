@@ -38,4 +38,26 @@ public class PixRequestDTOFactory {
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();
     }
+
+    public static PixRequestDTO errorKeyValueCelular(String keyValue) {
+        return PixRequestDTO.builder ()
+                .keyType (KEY_TYPE_CELULAR)
+                .keyValue (keyValue)
+                .accountType (ACCOUNT_TYPE)
+                .agencyNumber (AGENT_NUMBER)
+                .accountNumber (ACCOUNT_NUMBER)
+                .clientName (CLIENT_NAME)
+                .clientLastName (CLIENT_LAST_NAME).build ();
+    }
+
+    public static PixRequestDTO errorKeyValueEmail(String keyValue) {
+        return PixRequestDTO.builder ()
+                .keyType (KEY_TYPE_EMAIL)
+                .keyValue (keyValue)
+                .accountType (ACCOUNT_TYPE)
+                .agencyNumber (AGENT_NUMBER)
+                .accountNumber (ACCOUNT_NUMBER)
+                .clientName (CLIENT_NAME)
+                .clientLastName (CLIENT_LAST_NAME).build ();
+    }
 }

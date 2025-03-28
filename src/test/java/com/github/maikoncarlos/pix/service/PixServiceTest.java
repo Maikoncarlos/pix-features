@@ -1,9 +1,6 @@
 package com.github.maikoncarlos.pix.service;
 
-import com.github.maikoncarlos.pix.exception.PixByAgencyAndAccountNotFoundException;
-import com.github.maikoncarlos.pix.exception.PixByIdNotFoundException;
-import com.github.maikoncarlos.pix.exception.PixExistsByIdException;
-import com.github.maikoncarlos.pix.exception.PixKeyTypeNotFoundException;
+import com.github.maikoncarlos.pix.exception.*;
 import com.github.maikoncarlos.pix.fatory.PixFactory;
 import com.github.maikoncarlos.pix.fatory.PixRequestDTOFactory;
 import com.github.maikoncarlos.pix.fatory.PixUpdateRequestDTOFactory;
@@ -60,6 +57,28 @@ class PixServiceTest {
                     () -> pixService.save (PixRequestDTOFactory.errorKeyType ("error")));
 
             assertEquals (IllegalArgumentException.class, exception.getClass ());
+        }
+
+        @Test
+        @DisplayName("Teste retorna PixKeyValueAlreadyRegisteredException devido keyValue celular já existente!")
+        void testKeyPixKeyValueAlreadyRegisteredException() {
+            when(pixRepository.existsByKeyValue (KEY_VALUE_CELULAR)).thenThrow(new PixKeyValueAlreadyRegisteredException(KEY_VALUE_CELULAR));
+
+            final var exception = assertThrows (PixKeyValueAlreadyRegisteredException.class,
+                    () -> pixService.save (PixRequestDTOFactory.errorKeyValueCelular (KEY_VALUE_CELULAR)));
+
+            assertEquals (PixKeyValueAlreadyRegisteredException.class, exception.getClass ());
+        }
+
+        @Test
+        @DisplayName("Teste retorna PixKeyValueAlreadyRegisteredException devido keyValue email já existente!")
+        void testKeyPixKeyValueAlreadyRegisteredException_2() {
+            when(pixRepository.existsByKeyValue (KEY_VALUE_EMAIL)).thenReturn (true);
+
+            final var exception = assertThrows (PixKeyValueAlreadyRegisteredException.class,
+                    () -> pixService.save (PixRequestDTOFactory.errorKeyValueEmail (KEY_VALUE_EMAIL)));
+
+            assertEquals (PixKeyValueAlreadyRegisteredException.class, exception.getClass ());
         }
     }
 
