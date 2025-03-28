@@ -10,7 +10,14 @@ import java.util.UUID;
 public interface IPixRepository extends MongoRepository<Pix, UUID> {
 
     Optional<Pix> findByIdAndActive(UUID id, boolean active);
+
     List<Pix> findByAgencyNumberAndAccountNumberAndActive(int agencyNumber, int accountNumber, boolean active);
 
     boolean existsByIdAndActive(UUID id, boolean active);
+
+    boolean existsByKeyValue(String keyValue);
+
+    List<Pix> findByKeyType(String keyType);
+
+    List<Pix> findByKeyTypeAndClientName(String keyType, String clientName);
 }

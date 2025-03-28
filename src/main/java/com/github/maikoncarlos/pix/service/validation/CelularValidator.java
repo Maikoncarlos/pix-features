@@ -1,0 +1,15 @@
+package com.github.maikoncarlos.pix.service.validation;
+
+import java.util.regex.Pattern;
+
+public class CelularValidator {
+
+    public static boolean isValid(String value) {
+        final String CELULAR_REGEX = "^\\+\\d{1,2}\\d{1,3}\\d{9}$";
+
+        if (value == null) {
+            return false;
+        }
+        return Pattern.compile (CELULAR_REGEX).matcher (value).matches ();
+    }
+}

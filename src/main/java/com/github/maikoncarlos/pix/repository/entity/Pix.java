@@ -1,6 +1,7 @@
 package com.github.maikoncarlos.pix.repository.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Pix {
     @Id
     private UUID id = UUID.randomUUID ();

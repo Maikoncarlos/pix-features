@@ -1,12 +1,14 @@
 package com.github.maikoncarlos.pix.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+@Builder
 public record PixResponseDTO(UUID id,
                              String keyType,
                              String keyValue,
@@ -19,4 +21,5 @@ public record PixResponseDTO(UUID id,
                              LocalDateTime dateOfInclusion,
                              @JsonInclude(NON_NULL)
                              LocalDateTime dateOfInactivation) {
+
 }
