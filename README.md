@@ -42,9 +42,31 @@ Passos para configurar o ambiente e instalar o projeto localmente:
 
 Subir imagem do mongodb e buildar o projeto
 ```bash
-docker compose up
+docker compose up -d
 mvn spring-boot:run
 ```
+Baixe e Instale o MongoDb Compass, link:
+https://www.mongodb.com/pt-br/docs/compass/current/install/
+
+### Comandos Importante para Docker e Docker Compose:
+
+1 - Verificar qual versão e se está instalado em sua máquina:
+```bash
+$docker compose version
+$docker version
+```
+2 - Para o container com a imagem:
+```bash
+$docker compose stop
+$docker stop CONTAINER
+```
+
+3 - Verificar quais imagens estão rodando:
+```bash
+$docker compose ps
+@docker ps
+```
+
 Clone o repositório:
 ```bash
 git clone https://github.com/Maikoncarlos/pix-features.git
