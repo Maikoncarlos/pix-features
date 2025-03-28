@@ -8,8 +8,8 @@ public class PixRequestDTOFactory {
 
     public static PixRequestDTO success() {
         return PixRequestDTO.builder ()
-                .keyType (KEY_TYPE)
-                .keyValue (KEY_VALUE)
+                .keyType (KEY_TYPE_CPF)
+                .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
                 .agencyNumber (AGENT_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
@@ -17,11 +17,22 @@ public class PixRequestDTOFactory {
                 .clientLastName (CLIENT_LAST_NAME).build ();
     }
 
-    public static PixRequestDTO success(String keyTypeError) {
+    public static PixRequestDTO errorKeyType(String keyTypeError) {
         return PixRequestDTO.builder ()
                 .keyType (keyTypeError)
-                .keyValue (KEY_VALUE)
+                .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
+                .agencyNumber (AGENT_NUMBER)
+                .accountNumber (ACCOUNT_NUMBER)
+                .clientName (CLIENT_NAME)
+                .clientLastName (CLIENT_LAST_NAME).build ();
+    }
+
+    public static PixRequestDTO errorAccountType(String accountType) {
+        return PixRequestDTO.builder ()
+                .keyType (KEY_TYPE_CELULAR)
+                .keyValue (KEY_VALUE_CELULAR)
+                .accountType (accountType)
                 .agencyNumber (AGENT_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)

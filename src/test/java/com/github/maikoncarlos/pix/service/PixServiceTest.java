@@ -57,7 +57,7 @@ class PixServiceTest {
         void testKeyPixWithIllegalArgumentException() {
 
             final var exception = assertThrows (IllegalArgumentException.class,
-                    () -> pixService.save (PixRequestDTOFactory.success ("error")));
+                    () -> pixService.save (PixRequestDTOFactory.errorKeyType ("error")));
 
             assertEquals (IllegalArgumentException.class, exception.getClass ());
         }
@@ -75,7 +75,7 @@ class PixServiceTest {
 
             assertNotNull (actual);
             assertEquals (ID, actual.getId ());
-            assertEquals (KEY_TYPE, actual.getKeyType ());
+            assertEquals (KEY_TYPE_CPF, actual.getKeyType ());
         }
 
         @Test
@@ -170,25 +170,25 @@ class PixServiceTest {
         @Test
         @DisplayName("Teste deve retornar Lista de Chave Pix com sucesso na busca por Tipo de Chave somente")
         void testKeyPixWithSuccess() {
-            when (pixRepository.findByKeyType (KEY_TYPE)).thenReturn (List.of (PixFactory.responseSuccess ()));
+            when (pixRepository.findByKeyType (KEY_TYPE_CPF)).thenReturn (List.of (PixFactory.responseSuccess ()));
 
-            final var actual = pixService.findByKeyTypeAndOrClientName (KEY_TYPE, null);
+            final var actual = pixService.findByKeyTypeAndOrClientName (KEY_TYPE_CPF, null);
 
             assertEquals (List.of (PixFactory.responseSuccess ()), actual);
-            verify (pixRepository).findByKeyType (KEY_TYPE);
+            verify (pixRepository).findByKeyType (KEY_TYPE_CPF);
 
         }
 
         @Test
         @DisplayName("Teste deve retornar Lista de Chave Pix com sucesso na busca por Tipo de Chave e Nome do Cliente")
         void testKeyPixWithSuccess_2() {
-            when (pixRepository.findByKeyTypeAndClientName (KEY_TYPE, CLIENT_NAME)).thenReturn (List.of (PixFactory.responseSuccess ()));
+            when (pixRepository.findByKeyTypeAndClientName (KEY_TYPE_CPF, CLIENT_NAME)).thenReturn (List.of (PixFactory.responseSuccess ()));
 
-            final var actual = pixService.findByKeyTypeAndOrClientName (KEY_TYPE, CLIENT_NAME);
+            final var actual = pixService.findByKeyTypeAndOrClientName (KEY_TYPE_CPF, CLIENT_NAME);
 
             assertEquals (List.of (PixFactory.responseSuccess ()), actual);
-            verify (pixRepository).findByKeyTypeAndClientName (KEY_TYPE, CLIENT_NAME);
-            verify (pixRepository, times (0)).findByKeyType (KEY_TYPE);
+            verify (pixRepository).findByKeyTypeAndClientName (KEY_TYPE_CPF, CLIENT_NAME);
+            verify (pixRepository, times (0)).findByKeyType (KEY_TYPE_CPF);
 
         }
 
@@ -204,10 +204,10 @@ class PixServiceTest {
         @Test
         @DisplayName("Teste deve retornar PixKeyTypeNotFoundException por não existir chaves pix cadastradas com esse type de chave e nome do cliente")
         void testKeyPixKeyTypeNotFoundException_2() {
-            when(pixRepository.findByKeyTypeAndClientName(KEY_TYPE, CLIENT_NAME)).thenReturn (List.of ());
+            when(pixRepository.findByKeyTypeAndClientName(KEY_TYPE_CPF, CLIENT_NAME)).thenReturn (List.of ());
 
             final var exception = assertThrows (PixKeyTypeNotFoundException.class,
-                    () -> pixService.findByKeyTypeAndOrClientName (KEY_TYPE, CLIENT_NAME));
+                    () -> pixService.findByKeyTypeAndOrClientName (KEY_TYPE_CPF, CLIENT_NAME));
 
             assertEquals (PixKeyTypeNotFoundException.class, exception.getClass ());
         }
@@ -215,10 +215,10 @@ class PixServiceTest {
         @Test
         @DisplayName("Teste deve retornar PixKeyTypeNotFoundException por não existir chaves pix cadastradas com esse type de chave")
         void testKeyPixKeyTypeNotFoundException_3() {
-            when(pixRepository.findByKeyType (KEY_TYPE)).thenReturn (List.of ());
+            when(pixRepository.findByKeyType (KEY_TYPE_CPF)).thenReturn (List.of ());
 
             final var exception = assertThrows (PixKeyTypeNotFoundException.class,
-                    () -> pixService.findByKeyTypeAndOrClientName (KEY_TYPE, null));
+                    () -> pixService.findByKeyTypeAndOrClientName (KEY_TYPE_CPF, null));
 
             assertEquals (PixKeyTypeNotFoundException.class, exception.getClass ());
         }

@@ -9,8 +9,8 @@ public class PixResponseDTOFactory {
     public static PixResponseDTO success() {
         return PixResponseDTO.builder ()
                 .id (ID)
-                .keyType (KEY_TYPE)
-                .keyValue (KEY_VALUE)
+                .keyType (KEY_TYPE_CPF)
+                .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
                 .agencyNumber (AGENT_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)

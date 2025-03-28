@@ -10,8 +10,8 @@ public class PixFactory {
 
     public static Pix requestSuccess() {
         return Pix.builder ()
-                .keyType (KEY_TYPE)
-                .keyValue (KEY_VALUE)
+                .keyType (KEY_TYPE_CPF)
+                .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
                 .agencyNumber (AGENT_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
@@ -22,8 +22,8 @@ public class PixFactory {
     public static Pix responseSuccess() {
         return Pix.builder ()
                 .id (ID)
-                .keyType (KEY_TYPE)
-                .keyValue (KEY_VALUE)
+                .keyType (KEY_TYPE_CPF)
+                .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
                 .agencyNumber (AGENT_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
@@ -35,8 +35,8 @@ public class PixFactory {
     public static Pix responseDisableSuccess(LocalDateTime now) {
         return Pix.builder ()
                 .id (ID)
-                .keyType (KEY_TYPE)
-                .keyValue (KEY_VALUE)
+                .keyType (KEY_TYPE_CPF)
+                .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
                 .agencyNumber (AGENT_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
