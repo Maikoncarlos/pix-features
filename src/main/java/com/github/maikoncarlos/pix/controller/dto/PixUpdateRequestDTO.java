@@ -5,8 +5,10 @@ import com.github.maikoncarlos.pix.enumType.validation.ValueOfEnum;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 
+@Builder
 public record PixUpdateRequestDTO(@NotBlank String id,
                                   @ValueOfEnum(enumClass = AccountType.class) @NotNull String accountType,
                                   @Max(9999) @NotNull int agencyNumber,

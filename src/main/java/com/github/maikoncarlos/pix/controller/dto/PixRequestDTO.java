@@ -6,8 +6,10 @@ import com.github.maikoncarlos.pix.enumType.validation.ValueOfEnum;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 
+@Builder
 public record PixRequestDTO(@ValueOfEnum(enumClass = KeyType.class) @NotNull String keyType,
                             @Length(min = 11, max = 77) @NotBlank String keyValue,
                             @ValueOfEnum(enumClass = AccountType.class) @NotNull String accountType,
