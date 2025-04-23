@@ -12,7 +12,7 @@ public class PixUpdateRequestDTOFactory {
         return PixUpdateRequestDTO.builder ()
                 .id (ID.toString ())
                 .accountType (ACCOUNT_TYPE)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();
@@ -22,7 +22,7 @@ public class PixUpdateRequestDTOFactory {
         return PixUpdateRequestDTO.builder ()
                 .id (idError.toString ())
                 .accountType (ACCOUNT_TYPE)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();

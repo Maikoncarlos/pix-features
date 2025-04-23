@@ -11,7 +11,7 @@ public class PixRequestDTOFactory {
                 .keyType (KEY_TYPE_CPF)
                 .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();
@@ -22,7 +22,7 @@ public class PixRequestDTOFactory {
                 .keyType (keyTypeError)
                 .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();
@@ -33,7 +33,7 @@ public class PixRequestDTOFactory {
                 .keyType (KEY_TYPE_CELULAR)
                 .keyValue (KEY_VALUE_CELULAR)
                 .accountType (accountType)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();
@@ -44,7 +44,7 @@ public class PixRequestDTOFactory {
                 .keyType (KEY_TYPE_CELULAR)
                 .keyValue (keyValue)
                 .accountType (ACCOUNT_TYPE)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();
@@ -55,7 +55,7 @@ public class PixRequestDTOFactory {
                 .keyType (KEY_TYPE_EMAIL)
                 .keyValue (keyValue)
                 .accountType (ACCOUNT_TYPE)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME).build ();

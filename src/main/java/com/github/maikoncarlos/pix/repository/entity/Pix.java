@@ -1,7 +1,6 @@
 package com.github.maikoncarlos.pix.repository.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -14,7 +13,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
 public class Pix {
     @Id
     private UUID id = UUID.randomUUID ();
@@ -30,6 +28,29 @@ public class Pix {
     private boolean active = true;
 
     public Pix(String keyType, String keyValue, String accountType, int agencyNumber, int accountNumber, String clientName, String clientLastName) {
+        this.keyType = keyType;
+        this.keyValue = keyValue;
+        this.accountType = accountType;
+        this.agencyNumber = agencyNumber;
+        this.accountNumber = accountNumber;
+        this.clientName = clientName;
+        this.clientLastName = clientLastName;
+    }
+
+    public Pix(UUID id, String keyType, String keyValue, String accountType, int agencyNumber, int accountNumber, String clientName, String clientLastName, LocalDateTime dateOfInclusion ) {
+        this.id = id;
+        this.keyType = keyType;
+        this.keyValue = keyValue;
+        this.accountType = accountType;
+        this.agencyNumber = agencyNumber;
+        this.accountNumber = accountNumber;
+        this.clientName = clientName;
+        this.clientLastName = clientLastName;
+        this.dateOfInclusion = dateOfInclusion;
+    }
+
+    public Pix(UUID id, String keyType, String keyValue, String accountType, int agencyNumber, int accountNumber, String clientName, String clientLastName) {
+        this.id = id;
         this.keyType = keyType;
         this.keyValue = keyValue;
         this.accountType = accountType;

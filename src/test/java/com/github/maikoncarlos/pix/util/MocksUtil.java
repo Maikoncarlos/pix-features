@@ -18,7 +18,7 @@ public class MocksUtil {
     public static final String KEY_VALUE_CELULAR = "+5511987654321";
     public static final String KEY_VALUE_EMAIL = "testeMock@email.com";
     public static final String ACCOUNT_TYPE = "corrente";
-    public static final int AGENT_NUMBER = 2566;
+    public static final int AGENCY_NUMBER = 2566;
     public static final int ACCOUNT_NUMBER = 123465;
     public static final String CLIENT_NAME = "João";
     public static final String CLIENT_LAST_NAME = "Silva";

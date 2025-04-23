@@ -40,8 +40,8 @@ class PixServiceTest {
         @Test
         @DisplayName("Teste que cria chave pix chave com sucesso!")
         void testKeyPixWithSuccess() {
-            when (pixRepository.save (PixFactory.requestSuccess ())).thenReturn (PixFactory.responseSuccess ());
             when (pixMapper.requestToEntity (PixRequestDTOFactory.success ())).thenReturn (PixFactory.requestSuccess ());
+            when (pixRepository.save (PixFactory.requestSuccess ())).thenReturn (PixFactory.responseSuccess ());
 
             final var actual = pixService.save (PixRequestDTOFactory.success ());
 
@@ -118,10 +118,10 @@ class PixServiceTest {
         @Test
         @DisplayName("Teste retorna Lista de Chave Pix com Sucesso")
         void testKeyPixWithSuccess() {
-            when (pixRepository.findByAgencyNumberAndAccountNumberAndActive (AGENT_NUMBER, ACCOUNT_NUMBER, true))
+            when (pixRepository.findByAgencyNumberAndAccountNumberAndActive (AGENCY_NUMBER, ACCOUNT_NUMBER, true))
                     .thenReturn (List.of (PixFactory.responseSuccess ()));
 
-            final var actual = pixService.findListByAgencyAndAccount (AGENT_NUMBER, ACCOUNT_NUMBER);
+            final var actual = pixService.findListByAgencyAndAccount (AGENCY_NUMBER, ACCOUNT_NUMBER);
 
             assertNotNull (actual);
             assertEquals (1, actual.toArray ().length);

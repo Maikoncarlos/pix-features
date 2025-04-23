@@ -12,7 +12,7 @@ public class PixResponseDTOFactory {
                 .keyType (KEY_TYPE_CPF)
                 .keyValue (KEY_VALUE_CPF)
                 .accountType (ACCOUNT_TYPE)
-                .agencyNumber (AGENT_NUMBER)
+                .agencyNumber (AGENCY_NUMBER)
                 .accountNumber (ACCOUNT_NUMBER)
                 .clientName (CLIENT_NAME)
                 .clientLastName (CLIENT_LAST_NAME)
