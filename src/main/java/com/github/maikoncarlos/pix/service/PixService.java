@@ -9,6 +9,7 @@ import com.github.maikoncarlos.pix.repository.IPixRepository;
 import com.github.maikoncarlos.pix.repository.entity.Pix;
 import com.github.maikoncarlos.pix.service.validation.ValidKeyValueStrategy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 import static ch.qos.logback.core.util.StringUtil.isNullOrEmpty;
 import static java.lang.String.format;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PixService {
@@ -26,27 +28,36 @@ public class PixService {
     private final IPixRepository pixRepository;
     private final IPixMapper pixMapper;
 
+    static final String DEFAULT_LOG = "[LOG] PixService";
+
     @Transactional
     public Pix save(final PixRequestDTO pixRequestDTO) throws PixKeyValueAlreadyRegisteredException {
+        log.info (DEFAULT_LOG + " ValidaKeyValueStrategy ");
         final var validKeyValueStrategy = new ValidKeyValueStrategy (KeyType.getKeyType (pixRequestDTO.keyType ()));
         validKeyValueStrategy.execute (pixRequestDTO.keyValue ());
 
-        if (keyValueAlreadyRegistered (pixRequestDTO.keyValue ()))
+        if (keyValueAlreadyRegistered (pixRequestDTO.keyValue ())) {
+            log.error (DEFAULT_LOG + " keyValueAlreadyRegistered ");
             throw new PixKeyValueAlreadyRegisteredException (pixRequestDTO.keyValue ());
+        }
 
         return pixRepository.save (pixMapper.requestToEntity (pixRequestDTO));
     }
 
     public Pix findById(final String id) {
-        return pixRepository.findByIdAndActive (UUID.fromString (id), true).
-                orElseThrow (() -> new PixByIdNotFoundException (id));
+        return pixRepository.findByIdAndActive (UUID.fromString (id), true).orElseThrow (() -> {
+            log.error (DEFAULT_LOG + " findByIdAndActive ");
+            return new PixByIdNotFoundException (id);
+        });
     }
 
     public List<Pix> findListByAgencyAndAccount(final int agency, final int account) {
         final var responseFindAgencyAndAccount = pixRepository.findByAgencyNumberAndAccountNumberAndActive (agency, account, true);
 
-        if (responseFindAgencyAndAccount.isEmpty ())
+        if (responseFindAgencyAndAccount.isEmpty ()){
+            log.error (DEFAULT_LOG + " responseFindAgencyAndAccount ");
             throw new PixByAgencyAndAccountNotFoundException (agency, account);
+        }
 
         return responseFindAgencyAndAccount;
     }
@@ -66,8 +77,10 @@ public class PixService {
 
     @Transactional
     public Pix disableById(String id) {
-        if (pixAlreadyDisable (id))
+        if (pixAlreadyDisable (id)){
+            log.error (DEFAULT_LOG + " pixAlreadyDisable ");
             throw new PixExistsByIdException (id);
+        }
 
         Pix pix = findById (id);
         pix.setActive (false);
@@ -88,6 +101,7 @@ public class PixService {
         KeyType.getKeyType (keyType);
 
         if (isNullOrEmpty (clientName)) {
+            log.warn (DEFAULT_LOG + " isNullOrEmpty ");
             final var pixListKeyType = getByKeyType (keyType);
 
             return validPixIsEmpty (keyType, pixListKeyType);
@@ -99,6 +113,7 @@ public class PixService {
 
     private static List<Pix> validPixIsEmpty(String keyType, List<Pix> pixList) throws PixKeyTypeNotFoundException {
         if (pixList.isEmpty ()) {
+            log.error (DEFAULT_LOG + " pixList ");
             throw new PixKeyTypeNotFoundException (keyType);
         }
 
@@ -107,6 +122,7 @@ public class PixService {
 
     private static List<Pix> validPixIsEmpty(String keyType, String clientName, List<Pix> pixList) throws PixKeyTypeNotFoundException {
         if (pixList.isEmpty ()) {
+            log.error (DEFAULT_LOG + " pixList ");
             throw new PixKeyTypeNotFoundException (format (" %s , %s ", keyType, clientName));
         }
 
